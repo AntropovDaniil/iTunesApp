@@ -12,16 +12,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        getData()
+        submit_button.setOnClickListener {
+            if (!searchTextView.text.toString().equals(null)){
+                getData(searchTextView.text.toString())
+            }
+            else{
+                resultTextView.setText("Fill the searchTextView")
+            }
+        }
 
     }
 
-    private fun getData(){
-
-        val searchTerm: String = "Shakira"
-
-        val call: Call<Post> = ApiClient.getClient.getTracks(searchTerm)
+    private fun getData(searchTerm: String){
+        /*val call: Call<Post> = ApiClient.getClient.getTracks(searchTerm)
         call.enqueue(object : Callback<Post>{
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
 
@@ -33,8 +36,8 @@ class MainActivity : AppCompatActivity() {
                     val post: Post? = response.body()
                     val tracks = post?.resultModels
                     if (tracks != null) {
-                        for (track in tracks) {
-                            str += "${track.artistName} - ${track.trackName}  \n"
+                        for (album in tracks) {
+                            str += "${album.collectionName} - ${album.artistName}: ${album.primaryGenreName} \n\n"
                         }
                         resultTextView.setText(str)
 
@@ -47,6 +50,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Post>, t: Throwable) {
                 resultTextView.setText("Failed")
             }
-        })
+        })*/
     }
 }

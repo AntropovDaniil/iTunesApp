@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">iTunesApp</string>
+
+
+    <!-- SearchAlbumActivity -->
+    <string name="search_album_hint">Search an album</string>
+    <string name="genre_name">Genre</string>
+    <string name="album_name">Album Name</string>
+    <string name="group_name">Group Name</string>
+
+
 </resources>

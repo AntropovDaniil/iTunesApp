@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 class ResultModel {
 
-    @SerializedName("image")
+    @SerializedName("artistId")
     @Expose
-    lateinit var image: String
+    lateinit var artistId: String
 
     @SerializedName("collectionName")
     @Expose
@@ -17,7 +17,7 @@ class ResultModel {
     @Expose
     lateinit var artistName: String
 
-    @SerializedName("trackName")
+    @SerializedName("primaryGenreName")
     @Expose
-    lateinit var trackName: String
+    lateinit var primaryGenreName: String
 }

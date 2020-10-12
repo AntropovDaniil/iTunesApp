@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    val BASE_URL = "https://itunes.apple.com/" // search?term=Michael+Jackson
+    val BASE_URL = "https://itunes.apple.com/"
     val getClient: ITunesApi
             get() {
                 val retrofit = Retrofit.Builder()
