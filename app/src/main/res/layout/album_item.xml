@@ -8,10 +8,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/album_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="90dp"
-        android:maxHeight="90dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_image_50"
@@ -22,22 +21,42 @@
         android:id="@+id/genre_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="6dp"
+        android:textSize="16sp"
+        android:textColor="@color/extraTextColor"
+        android:lines="1"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="4dp"
         android:text="@string/genre_name"/>
 
     <TextView
         android:id="@+id/album_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:textColor="@color/mainTextColor"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="2dp"
         android:text="@string/album_name"/>
 
     <TextView
         android:id="@+id/artist_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="16sp"
+        android:textColor="@color/extraTextColor"
+        android:lines="1"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="6dp"
         android:text="@string/group_name"/>
 
 </LinearLayout>

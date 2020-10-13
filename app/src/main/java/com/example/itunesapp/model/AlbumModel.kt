@@ -1,8 +1,11 @@
 package com.example.itunesapp.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class AlbumModel(
 
     @SerializedName("collectionType")
@@ -13,13 +16,13 @@ data class AlbumModel(
     @Expose
     private var artistId: String,
 
+    @SerializedName("collectionId")
+    @Expose
+    val collectionId: String,
+
     @SerializedName("artistName")
     @Expose
     var artistName: String,
-
-    @SerializedName("collectionName")
-    @Expose
-    private var collectionName: String,
 
     @SerializedName("collectionCensoredName")
     @Expose
@@ -33,21 +36,13 @@ data class AlbumModel(
     @Expose
     private var collectionViewUrl: String,
 
-    @SerializedName("artworkUrl60")
-    @Expose
-    private var artworkUrl60: String,
-
     @SerializedName("artworkUrl100")
     @Expose
     var artworkUrl100: String,
 
-    @SerializedName("atrackCount")
+    @SerializedName("trackCount")
     @Expose
-    private var trackCount: String,
-
-    @SerializedName("copyright")
-    @Expose
-    private var copyright: String,
+    var trackCount: String,
 
     @SerializedName("releaseDate")
     @Expose
@@ -57,7 +52,7 @@ data class AlbumModel(
     @Expose
     var primaryGenreName: String,
     
-): Comparable<AlbumModel>
+): Comparable<AlbumModel>, Parcelable
 {
     override fun compareTo(other: AlbumModel): Int {
         return this.collectionCensoredName.compareTo(other.collectionCensoredName)

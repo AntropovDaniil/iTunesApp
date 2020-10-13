@@ -1,10 +1,10 @@
 package com.example.itunesapp
 
-import com.example.itunesapp.model.AlbumModel
+import com.example.itunesapp.model.TrackModel
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Post() {
+class PostTrack {
 
     @SerializedName("resultCount")
     @Expose
@@ -12,7 +12,5 @@ class Post() {
 
     @SerializedName("results")
     @Expose
-    lateinit var resultModels: List<AlbumModel>
-
-
+    lateinit var resultModels: ArrayList<TrackModel>
 }
