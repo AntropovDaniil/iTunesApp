@@ -2,7 +2,6 @@ package com.example.itunesapp.presenter
 
 import android.net.Uri
 import android.view.View
-import android.widget.Toast
 import com.example.itunesapp.ApiClient
 import com.example.itunesapp.PostTrack
 import com.example.itunesapp.model.AlbumModel
@@ -12,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_album_detail.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class AlbumDetailPresenter {
 
@@ -22,6 +20,9 @@ class AlbumDetailPresenter {
         albumDetailView = view
     }
 
+    /**
+     * Method gets track of selected album
+     */
     fun searchTracks(collectionId: String?){
         val call: Call<PostTrack> = ApiClient.getSearchAlbums.getTracks(collectionId)
         call.enqueue(object : Callback<PostTrack> {
@@ -47,11 +48,15 @@ class AlbumDetailPresenter {
         })
     }
 
+    /**
+     * Method sets album details in AlbumDetailFragment
+     */
     fun setAlbumDetails(view: View, albumModel: AlbumModel){
         Picasso.get().load(Uri.parse(albumModel.artworkUrl100)).into(view.album_image_detail_view)
         view.album_name_detail_view.text = albumModel.collectionCensoredName
         view.album_name_detail_view.isSelected = true
         view.artist_name_detail_view.text = albumModel.artistName
+        if (albumModel.trackCount.equals("0")) view.tracks_amount.visibility = View.GONE
         val trackCount = "${albumModel.trackCount} tracks"
         view.tracks_amount.text = trackCount
 

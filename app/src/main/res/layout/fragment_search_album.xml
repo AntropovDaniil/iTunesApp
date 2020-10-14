@@ -41,6 +41,17 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/search_album_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_album_title"
+        style="@style/MainTextStyle"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="20sp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/album_rv"
         android:layout_width="match_parent"

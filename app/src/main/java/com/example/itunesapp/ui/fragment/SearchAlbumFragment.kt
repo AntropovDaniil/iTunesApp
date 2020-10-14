@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.itunesapp.R
 import com.example.itunesapp.activity.SearchAlbumActivity
 import com.example.itunesapp.model.AlbumModel
+import com.example.itunesapp.model.TopAlbumModel
 import com.example.itunesapp.presenter.AlbumListPresenter
 import com.example.itunesapp.ui.adapter.AlbumListAdapter
 import com.example.itunesapp.view.AlbumListView
@@ -43,8 +44,8 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         albumListPresenter.setView(this)
         initRecyclerView(view)
         view.search_button.setOnClickListener { findAlbums() }
-        //TODo change
-        //initView(view)
+
+        initView(view)
 
         return view
     }
@@ -60,7 +61,9 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         }
     }
 
-
+    /**
+     * Method initializes a recycler view
+     */
     private fun initRecyclerView(@NotNull view: View){
         val recyclerView = view.album_rv
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
@@ -69,15 +72,29 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         recyclerView.adapter = albumListListAdapter
     }
 
+    /**
+     * Method sends to Presenter a find album operation
+     */
     private fun findAlbums(){
-        if (search_text_view.text == null){
+        if (search_text_view.text.isEmpty()){
             showError("Fill the text view")
         }
         else{
+            search_album_title.visibility = View.GONE
             albumListPresenter.searchAlbums(search_text_view.text.toString())
         }
     }
 
+    /**
+     * Method sends to Presenter show top albums operation
+     */
+    override fun renderTopAlbums(albums: List<TopAlbumModel>) {
+        albumListListAdapter.setTopAlbums(albums)
+    }
+
+    /**
+     * Method sends to Presenter find selected album operation
+     */
     override fun renderAlbums(albums: List<AlbumModel>) {
         albumListListAdapter.setAlbums(albums)
     }
@@ -99,13 +116,12 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         super.onSaveInstanceState(outState)
     }
 
-    /*
+
     private fun initView(view: View){
-        if (view.search_text_view.text != null){
+        if (view.search_text_view.text.isEmpty()){
             albumListPresenter.showTopAlbums()
         }
-        else println("ITS NOT NULL")
-    }*/
+    }
 
 
 }

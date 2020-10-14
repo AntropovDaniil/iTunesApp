@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tracks_amount"
                 android:textSize="16sp"
+                android:visibility="visible"
                 android:layout_marginTop="2dp"
                 style="@style/ExtraTextStyle"
                 android:layout_gravity="start" />
@@ -70,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/track_release_date"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:layout_marginTop="2dp"
                 style="@style/ExtraTextStyle"
                 android:layout_gravity="start" />

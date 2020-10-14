@@ -5,16 +5,12 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+
+/**
+ * Class of Album Entity
+ */
 @Parcelize
 data class AlbumModel(
-
-    @SerializedName("collectionType")
-    @Expose
-    private var collectionType: String,
-
-    @SerializedName("artistId")
-    @Expose
-    private var artistId: String,
 
     @SerializedName("collectionId")
     @Expose
@@ -27,14 +23,6 @@ data class AlbumModel(
     @SerializedName("collectionCensoredName")
     @Expose
     var collectionCensoredName: String,
-
-    @SerializedName("artistViewUrl")
-    @Expose
-    private var artistViewUrl: String,
-
-    @SerializedName("collectionViewUrl")
-    @Expose
-    private var collectionViewUrl: String,
 
     @SerializedName("artworkUrl100")
     @Expose

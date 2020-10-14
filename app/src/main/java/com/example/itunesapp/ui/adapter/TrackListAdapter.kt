@@ -38,12 +38,14 @@ class TrackListAdapter(val context: Context?):
         notifyDataSetChanged()
     }
 
+    /**
+     * Method cast track duration into other presentation
+     */
     private fun getTimeInMin(trackTime: String): String{
         val timeInMillis = trackTime.toLongOrNull()
         if (timeInMillis == null)
             return "0:00"
         else{
-            val min = timeInMillis/1000/60
             val sec = timeInMillis/1000%60
             return if (sec>=10) "${timeInMillis/1000/60}:${timeInMillis/1000%60}"
             else "${timeInMillis/1000/60}:0${timeInMillis/1000%60}"

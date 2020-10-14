@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AlbumListPresenter() {
+class AlbumListPresenter {
 
     private lateinit var albumListView: AlbumListView
 
@@ -16,6 +16,9 @@ class AlbumListPresenter() {
         albumListView = view
     }
 
+    /**
+     * Method gets albums by entered words
+     */
     fun searchAlbums(searchTerm: String){
         val call: Call<PostAlbum> = ApiClient.getSearchAlbums.getAlbums(searchTerm)
         call.enqueue(object : Callback<PostAlbum> {
@@ -26,9 +29,9 @@ class AlbumListPresenter() {
                 else{
                     val post: PostAlbum? = response.body()
                     val albums = post?.resultModels
-                    albums!!.removeAt(0)
 
-                    if (albums.size != 0){
+                    if (albums?.size != 0){
+                        albums!!.removeAt(0)
                         albumListView.renderAlbums(albums)
                     }
                     else
@@ -42,7 +45,10 @@ class AlbumListPresenter() {
         })
     }
 
-    /*fun showTopAlbums(){
+    /**
+     * Method shows top 20 albums in the app start
+     */
+    fun showTopAlbums(){
         val call: Call<PostAlbum> = ApiClient.getTopAlbums.getTopAlbums()
         call.enqueue(object : Callback<PostAlbum> {
             override fun onResponse(call: Call<PostAlbum>, response: Response<PostAlbum>) {
@@ -51,9 +57,9 @@ class AlbumListPresenter() {
                 } else {
                     val post: PostAlbum? = response.body()
                     val feed = post?.topAlbumResultModel
-                    println("FEED!!! ${feed.toString()}")
+
                     if (feed != null) {
-                        albumListView.renderAlbums(feed.albumResults)
+                        albumListView.renderTopAlbums(feed.albumResults)
                     } else
                         albumListView.showError("There're no such albums")
                 }
@@ -61,10 +67,9 @@ class AlbumListPresenter() {
 
             override fun onFailure(call: Call<PostAlbum>, t: Throwable) {
                 albumListView.showError("Failed")
-                println("FAILED $t")
             }
         })
-    }*/
+    }
 
 
 }

@@ -6,10 +6,6 @@ import com.google.gson.annotations.SerializedName
 
 class PostTrack {
 
-    @SerializedName("resultCount")
-    @Expose
-    lateinit var resultCount: Integer
-
     @SerializedName("results")
     @Expose
     lateinit var resultModels: ArrayList<TrackModel>

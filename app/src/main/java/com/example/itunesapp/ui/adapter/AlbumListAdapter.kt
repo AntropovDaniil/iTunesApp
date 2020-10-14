@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.itunesapp.R
-import com.example.itunesapp.activity.SearchAlbumActivity
 import com.example.itunesapp.model.AlbumModel
-import com.example.itunesapp.presenter.AlbumListPresenter
+import com.example.itunesapp.model.TopAlbumModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.album_item.view.*
 import java.util.*
@@ -26,22 +25,41 @@ class AlbumListAdapter(val context: Context?,
     }
 
     override fun onBindViewHolder(holderList: AlbumListViewHolder, position: Int) {
-        val album: AlbumModel = albumList[position]
+        val album = albumList[position]
         holderList.setAlbumImage(album.artworkUrl100)
         holderList.setAlbumName(album.collectionCensoredName)
         holderList.setArtistName(album.artistName)
         holderList.setGenreName(album.primaryGenreName)
+
     }
 
     override fun getItemCount(): Int {
         return albumList.size
     }
 
+
+
     fun setAlbums(albums: List<AlbumModel>){
         albumList.clear()
         Collections.sort(albums)
         albumList.addAll(albums)
 
+        notifyDataSetChanged()
+    }
+
+    /**
+     * Method cast TopAlbumModel into AlbumModel to get detail information and its songs
+     */
+    fun setTopAlbums(albums: List<TopAlbumModel>){
+        albumList.clear()
+        for (feedAlbum in albums)
+            albumList.add(AlbumModel(collectionId = feedAlbum.id,
+                artistName = feedAlbum.artistName,
+                collectionCensoredName = feedAlbum.collectionCensoredName,
+                artworkUrl100 = feedAlbum.artworkUrl100,
+                releaseDate = feedAlbum.releaseDate,
+                trackCount = "0",
+                primaryGenreName = feedAlbum.genres[0].name))
         notifyDataSetChanged()
     }
 
@@ -58,21 +76,25 @@ class AlbumListAdapter(val context: Context?,
             }
         }
 
-        fun setAlbumImage(imageString: String){
-            val imageUri: Uri = Uri.parse(imageString)
-            Picasso.get().load(imageUri).into(itemView.album_image)
+        fun setAlbumImage(imageString: String?){
+            if (imageString.equals(null)){
+            }
+            else {
+                val imageUri: Uri = Uri.parse(imageString)
+                Picasso.get().load(imageUri).into(itemView.album_image)
+            }
         }
 
-        fun setGenreName(genreName: String){
+        fun setGenreName(genreName: String?){
             itemView.genre_name.text = genreName
         }
 
-        fun setAlbumName(albumName: String){
+        fun setAlbumName(albumName: String?){
             itemView.album_name.text = albumName
             itemView.album_name.isSelected = true
         }
 
-        fun setArtistName(artistName: String){
+        fun setArtistName(artistName: String?){
             itemView.artist_name.text = artistName
         }
     }
