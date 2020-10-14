@@ -13,6 +13,7 @@ class SearchAlbumActivity : AppCompatActivity() {
 
     companion object{
         var INTENT_PARAM_ALBUM_MODEL: String = "INTENT_PARAM_ALBUM_MODEL"
+        var SAVED_PARAM_ALBUM_MODEL: String = "SAVED_PARAM_ALBUM_MODEL"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

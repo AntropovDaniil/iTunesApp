@@ -16,7 +16,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AlbumListAdapter(val context: Context?,
-                       val albumListPresenter: AlbumListPresenter,
                        val onClickListener: OnAlbumClickListener): RecyclerView.Adapter<AlbumListAdapter.AlbumListViewHolder>() {
 
     private val albumList = ArrayList<AlbumModel>()

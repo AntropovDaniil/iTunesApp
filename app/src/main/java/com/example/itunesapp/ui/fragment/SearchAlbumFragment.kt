@@ -1,7 +1,6 @@
 package com.example.itunesapp.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import com.example.itunesapp.R
 import com.example.itunesapp.activity.SearchAlbumActivity
 import com.example.itunesapp.model.AlbumModel
 import com.example.itunesapp.presenter.AlbumListPresenter
-import com.example.itunesapp.ui.activity.AlbumDetailActivity
 import com.example.itunesapp.ui.adapter.AlbumListAdapter
 import com.example.itunesapp.view.AlbumListView
 import kotlinx.android.synthetic.main.fragment_search_album.*
@@ -31,6 +29,11 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         searchAlbumActivity = context as SearchAlbumActivity
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,8 +43,21 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         albumListPresenter.setView(this)
         initRecyclerView(view)
         view.search_button.setOnClickListener { findAlbums() }
+        //TODo change
+        //initView(view)
 
         return view
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null){
+            val searchText = (savedInstanceState.getString(SearchAlbumActivity.SAVED_PARAM_ALBUM_MODEL))
+            if (searchText != null) {
+                search_text_view.setText(searchText)
+                findAlbums()
+            }
+        }
     }
 
 
@@ -49,16 +65,16 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         val recyclerView = view.album_rv
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
         val onAlbumClickListener = getClickListener()
-        albumListListAdapter = AlbumListAdapter(context, albumListPresenter, onAlbumClickListener)
+        albumListListAdapter = AlbumListAdapter(context, onAlbumClickListener)
         recyclerView.adapter = albumListListAdapter
     }
 
     private fun findAlbums(){
-        if (searchTextView.text.toString().equals(null)){
+        if (search_text_view.text == null){
             showError("Fill the text view")
         }
         else{
-            albumListPresenter.searchAlbums(searchTextView.text.toString())
+            albumListPresenter.searchAlbums(search_text_view.text.toString())
         }
     }
 
@@ -70,19 +86,26 @@ class SearchAlbumFragment : Fragment(), AlbumListView {
         Toast.makeText(context, errorMessage,Toast.LENGTH_LONG).show()
     }
 
-    override fun openAlbumDetails() {
-        TODO("Not yet implemented")
-    }
-
     private fun getClickListener(): AlbumListAdapter.OnAlbumClickListener{
         return object : AlbumListAdapter.OnAlbumClickListener{
             override fun onAlbumClick(album: AlbumModel) {
-                //albumListListAdapter.navigateToAlbumDetail()
-                //Toast.makeText(activity, "Item was clicked", Toast.LENGTH_LONG).show()
                 searchAlbumActivity.navigateToAlbumDetails(album)
             }
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(SearchAlbumActivity.SAVED_PARAM_ALBUM_MODEL, search_text_view.text.toString())
+        super.onSaveInstanceState(outState)
+    }
+
+    /*
+    private fun initView(view: View){
+        if (view.search_text_view.text != null){
+            albumListPresenter.showTopAlbums()
+        }
+        else println("ITS NOT NULL")
+    }*/
 
 
 }

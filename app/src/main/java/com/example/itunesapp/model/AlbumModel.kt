@@ -46,7 +46,7 @@ data class AlbumModel(
 
     @SerializedName("releaseDate")
     @Expose
-    private var releaseDate: String,
+    var releaseDate: String,
 
     @SerializedName("primaryGenreName")
     @Expose

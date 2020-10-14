@@ -23,7 +23,7 @@ class AlbumDetailPresenter {
     }
 
     fun searchTracks(collectionId: String?){
-        val call: Call<PostTrack> = ApiClient.getClient.getTracks(collectionId)
+        val call: Call<PostTrack> = ApiClient.getSearchAlbums.getTracks(collectionId)
         call.enqueue(object : Callback<PostTrack> {
             override fun onResponse(call: Call<PostTrack>, response: Response<PostTrack>) {
                 if (!response.isSuccessful) {
@@ -54,5 +54,9 @@ class AlbumDetailPresenter {
         view.artist_name_detail_view.text = albumModel.artistName
         val trackCount = "${albumModel.trackCount} tracks"
         view.tracks_amount.text = trackCount
+
+        val trackReleaseDateArray = albumModel.releaseDate.substring(0,10).split("-")
+        val trackReleaseDate = "Release: ${trackReleaseDateArray.reversed().joinToString("-")}"
+        view.track_release_date.text = trackReleaseDate
     }
 }

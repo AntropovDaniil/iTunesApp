@@ -13,4 +13,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MainTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/mainTextColor</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ExtraTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/extraTextColor</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+
+
 </resources>

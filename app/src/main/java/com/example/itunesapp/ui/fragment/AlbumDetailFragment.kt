@@ -25,6 +25,11 @@ class AlbumDetailFragment : Fragment(), AlbumDetailView {
     lateinit var trackListAdapter: TrackListAdapter
     lateinit var albumDetailPresenter: AlbumDetailPresenter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,8 +65,10 @@ class AlbumDetailFragment : Fragment(), AlbumDetailView {
     private fun initRecyclerView(view: View){
         val recyclerView = view.track_rv
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        trackListAdapter = TrackListAdapter(context, albumDetailPresenter)
+        trackListAdapter = TrackListAdapter(context)
         recyclerView.adapter = trackListAdapter
     }
+
+
 
 }

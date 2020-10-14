@@ -8,5 +8,4 @@ interface AlbumListView {
 
     fun showError(errorMessage: String)
 
-    fun openAlbumDetails()
 }

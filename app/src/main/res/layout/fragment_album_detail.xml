@@ -20,44 +20,62 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView
-            android:id="@+id/album_name_detail_view"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxWidth="180dp"
-            android:text="@string/album_name"
-            android:textSize="20sp"
-            android:textColor="@color/mainTextColor"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:singleLine="true"
-            android:scrollHorizontally="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit ="marquee_forever"
+            android:orientation="vertical"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/album_image_detail_view"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/artist_name_detail_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/group_name"
-            android:textSize="16sp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/album_image_detail_view"
-            app:layout_constraintTop_toBottomOf="@id/album_name_detail_view" />
+            <TextView
+                android:id="@+id/album_name_detail_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/album_name"
+                android:textSize="20sp"
+                style="@style/MainTextStyle"
+                android:layout_gravity="start"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit ="marquee_forever"/>
 
-        <TextView
-            android:id="@+id/tracks_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tracks_amount"
-            android:textSize="16sp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/album_image_detail_view"
-            app:layout_constraintTop_toBottomOf="@id/artist_name_detail_view"/>
+            <TextView
+                android:id="@+id/artist_name_detail_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/group_name"
+                android:textSize="16sp"
+                android:layout_marginTop="2dp"
+                style="@style/ExtraTextStyle"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:id="@+id/tracks_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tracks_amount"
+                android:textSize="16sp"
+                android:layout_marginTop="2dp"
+                style="@style/ExtraTextStyle"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:id="@+id/track_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/track_release_date"
+                android:textSize="14sp"
+                android:layout_marginTop="2dp"
+                style="@style/ExtraTextStyle"
+                android:layout_gravity="start" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

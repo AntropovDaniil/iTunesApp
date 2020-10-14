@@ -5,6 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="mainTextColor">#000000</color>
-    <color name="extraTextColor">#535353</color>
+    <color name="extraTextColor">#4E4E4E</color>
     <color name="albumItemColor">#CFCFCF</color>
 </resources>

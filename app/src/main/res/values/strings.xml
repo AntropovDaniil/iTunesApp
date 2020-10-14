@@ -10,6 +10,7 @@
 
     <!-- AlbumDetailActivity -->
     <string name="tracks_amount">Tracks amount</string>
+    <string name="track_release_date">Release Date</string>
     <string name="track_number">1</string>
     <string name="track_name">Track Name</string>
     <string name="track_duration">0:00</string>

@@ -10,8 +10,7 @@ import com.example.itunesapp.model.TrackModel
 import com.example.itunesapp.presenter.AlbumDetailPresenter
 import kotlinx.android.synthetic.main.track_item.view.*
 
-class TrackListAdapter(val context: Context?,
-                       val albumDetailPresenter: AlbumDetailPresenter):
+class TrackListAdapter(val context: Context?):
     RecyclerView.Adapter<TrackListAdapter.TrackListViewHolder>() {
 
     private val trackList = ArrayList<TrackModel>()
