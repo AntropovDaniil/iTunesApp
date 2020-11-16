@@ -1,5 +1,7 @@
 package com.example.itunesapp.ui.fragment
 
+import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import com.example.itunesapp.activity.SearchAlbumActivity
 import com.example.itunesapp.model.AlbumModel
 import com.example.itunesapp.model.TrackModel
 import com.example.itunesapp.presenter.AlbumDetailPresenter
+import com.example.itunesapp.ui.activity.AlbumDetailActivity
 import com.example.itunesapp.ui.adapter.TrackListAdapter
 import com.example.itunesapp.view.AlbumDetailView
 import com.squareup.picasso.Picasso
@@ -24,6 +27,12 @@ class AlbumDetailFragment : Fragment(), AlbumDetailView {
 
     lateinit var trackListAdapter: TrackListAdapter
     lateinit var albumDetailPresenter: AlbumDetailPresenter
+    lateinit var albumDetailActivity: AlbumDetailActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        albumDetailActivity = context as AlbumDetailActivity
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +74,19 @@ class AlbumDetailFragment : Fragment(), AlbumDetailView {
     private fun initRecyclerView(view: View){
         val recyclerView = view.track_rv
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        trackListAdapter = TrackListAdapter(context)
+        val onTrackClickListener = getClickListener()
+        trackListAdapter = TrackListAdapter(context, onTrackClickListener)
         recyclerView.adapter = trackListAdapter
     }
 
+
+    private fun getClickListener(): TrackListAdapter.OnTrackClickListener{
+        return object : TrackListAdapter.OnTrackClickListener{
+            override fun onTrackCLick(track: TrackModel) {
+                albumDetailActivity.navigateToMediaPlayer(track)
+            }
+        }
+    }
 
 
 }

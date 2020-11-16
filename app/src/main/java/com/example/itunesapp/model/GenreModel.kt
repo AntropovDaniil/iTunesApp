@@ -12,14 +12,14 @@ import kotlinx.android.parcel.Parcelize
 data class GenreModel(
     @SerializedName("genreId")
     @Expose
-    var genreId: String,
+    val genreId: String,
 
     @SerializedName("name")
     @Expose
-    var name: String,
+    val name: String,
 
     @SerializedName("url")
     @Expose
-    var url: String
+    val url: String
 ): Parcelable {
 }

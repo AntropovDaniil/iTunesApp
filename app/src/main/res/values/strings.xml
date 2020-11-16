@@ -15,6 +15,12 @@
     <string name="track_number">1</string>
     <string name="track_name">Track Name</string>
     <string name="track_duration">0:00</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
+    <!-- MediaPlayerActivity -->
+    <string name="album_name_track_view">Album Name</string>
+    <string name="track_name_track_view">Track Name</string>
+    <string name="band_name_track_view">Band Name</string>
+    <string name="track_time_track_view">0:00</string>
 </resources>

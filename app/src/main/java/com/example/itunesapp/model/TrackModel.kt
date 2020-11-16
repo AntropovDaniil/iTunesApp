@@ -1,73 +1,69 @@
 package com.example.itunesapp.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class TrackModel(
-
-    @SerializedName("wrapperType")
-    @Expose
-    private var wrapperType: String,
-
-    @SerializedName("kind")
-    @Expose
-    private var kind: String,
 
     @SerializedName("artistId")
     @Expose
-    private var artistId: String,
+    val artistId: String,
 
     @SerializedName("collectionId")
     @Expose
-    private var collectionId: String,
+    val collectionId: String,
 
     @SerializedName("trackId")
     @Expose
-    private var trackId: String,
+    val trackId: String,
 
     @SerializedName("artistName")
     @Expose
-    private var artistName: String,
+    val artistName: String,
 
     @SerializedName("collectionName")
     @Expose
-    private var collectionName: String,
+    val collectionName: String,
 
     @SerializedName("trackName")
     @Expose
-    var trackName: String,
+    val trackName: String,
 
     @SerializedName("collectionCensoredName")
     @Expose
-    private var collectionCensoredName: String,
+    val collectionCensoredName: String,
 
     @SerializedName("trackCensoredName")
     @Expose
-    var trackCensoredName: String,
+    val trackCensoredName: String,
 
     @SerializedName("artistViewUrl")
     @Expose
-    private var artistViewUrl: String,
+    val artistViewUrl: String,
 
     @SerializedName("collectionViewUrl")
     @Expose
-    private var collectionViewUrl: String,
+    val collectionViewUrl: String,
 
     @SerializedName("trackViewUrl")
     @Expose
-    private var trackViewUrl: String,
+    val trackViewUrl: String,
 
     @SerializedName("previewUrl")
     @Expose
-    private var previewUrl: String,
+    val previewUrl: String,
 
     @SerializedName("artworkUrl100")
     @Expose
-    private var artworkUrl100: String,
+    val artworkUrl100: String,
 
     @SerializedName("trackTimeMillis")
     @Expose
     val trackTimeMillis:String
-    )
+
+    ): Parcelable
 {
 }

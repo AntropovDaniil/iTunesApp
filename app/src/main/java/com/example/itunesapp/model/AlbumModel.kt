@@ -18,27 +18,27 @@ data class AlbumModel(
 
     @SerializedName("artistName")
     @Expose
-    var artistName: String,
+    val artistName: String,
 
     @SerializedName("collectionCensoredName")
     @Expose
-    var collectionCensoredName: String,
+    val collectionCensoredName: String,
 
     @SerializedName("artworkUrl100")
     @Expose
-    var artworkUrl100: String,
+    val artworkUrl100: String,
 
     @SerializedName("trackCount")
     @Expose
-    var trackCount: String,
+    val trackCount: String,
 
     @SerializedName("releaseDate")
     @Expose
-    var releaseDate: String,
+    val releaseDate: String,
 
     @SerializedName("primaryGenreName")
     @Expose
-    var primaryGenreName: String,
+    val primaryGenreName: String,
     
 ): Comparable<AlbumModel>, Parcelable
 {

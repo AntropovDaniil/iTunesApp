@@ -9,5 +9,5 @@ import com.google.gson.annotations.SerializedName
 data class FeedModel(
     @SerializedName("results")
     @Expose
-    var albumResults: ArrayList<TopAlbumModel>) {
+    val albumResults: ArrayList<TopAlbumModel>) {
 }

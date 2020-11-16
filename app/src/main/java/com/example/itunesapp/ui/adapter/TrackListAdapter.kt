@@ -1,5 +1,6 @@
 package com.example.itunesapp.ui.adapter
 
+import android.content.ContentResolver
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,8 @@ import com.example.itunesapp.model.TrackModel
 import com.example.itunesapp.presenter.AlbumDetailPresenter
 import kotlinx.android.synthetic.main.track_item.view.*
 
-class TrackListAdapter(val context: Context?):
+class TrackListAdapter(val context: Context?,
+                        val onClickListener: OnTrackClickListener):
     RecyclerView.Adapter<TrackListAdapter.TrackListViewHolder>() {
 
     private val trackList = ArrayList<TrackModel>()
@@ -52,7 +54,18 @@ class TrackListAdapter(val context: Context?):
         }
     }
 
+    interface OnTrackClickListener{
+        fun onTrackCLick(track: TrackModel)
+    }
+
     inner class TrackListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                val trackModel = trackList[adapterPosition]
+                onClickListener.onTrackCLick(trackModel)
+            }
+        }
 
         fun setTrackName(trackName: String) {
             itemView.track_name.text = trackName
@@ -67,4 +80,5 @@ class TrackListAdapter(val context: Context?):
             itemView.track_duration.text = trackDuration
         }
     }
+
 }

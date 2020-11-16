@@ -14,27 +14,27 @@ data class TopAlbumModel(
 
     @SerializedName("id")
     @Expose
-    var id: String,
+    val id: String,
 
     @SerializedName("artistName")
     @Expose
-    var artistName: String,
+    val artistName: String,
 
     @SerializedName("releaseDate")
     @Expose
-    var releaseDate: String,
+    val releaseDate: String,
 
     @SerializedName("artworkUrl100")
     @Expose
-    var artworkUrl100: String,
+    val artworkUrl100: String,
 
     @SerializedName("name")
     @Expose
-    var collectionCensoredName: String,
+    val collectionCensoredName: String,
 
     @SerializedName("genres")
     @Expose
-    var genres: List<GenreModel>
+    val genres: List<GenreModel>
 
 ):  Parcelable {
 }
