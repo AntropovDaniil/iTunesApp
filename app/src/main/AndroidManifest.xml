@@ -11,8 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/MaterialAppTheme">
-        <activity android:name=".ui.activity.MediaPlayerActivity"></activity>
+        android:theme="@style/MaterialAppTheme"
+        android:usesCleartextTraffic="true">
+        <service
+            android:name=".ui.MediaService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".ui.activity.MediaPlayerActivity" />
         <activity
             android:name=".ui.activity.AlbumDetailActivity"
             android:launchMode="singleTop" />
