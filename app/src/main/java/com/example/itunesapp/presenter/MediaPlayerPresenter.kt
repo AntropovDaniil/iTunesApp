@@ -4,10 +4,12 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import com.example.itunesapp.PlayerObject
 import com.example.itunesapp.R
 import com.example.itunesapp.model.TrackModel
 import com.example.itunesapp.view.MediaPlayerView
@@ -18,15 +20,16 @@ import kotlinx.android.synthetic.main.fragment_media_player.view.*
 class MediaPlayerPresenter {
 
     private lateinit var mediaPlayerView: MediaPlayerView
-    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var seekBar: SeekBar
     private lateinit var startTrack: TextView
     private lateinit var endTrack: TextView
     private val handler: Handler = Handler()
+    private lateinit var mediaPlayer: MediaPlayer
 
     fun setView(view: MediaPlayerView){
         mediaPlayerView = view
     }
+
 
     fun setTrackDetails(view: View, track: TrackModel){
         Picasso.get().load(Uri.parse(track.artworkUrl100)).into(view.album_image_track_view)
@@ -38,45 +41,26 @@ class MediaPlayerPresenter {
         seekBar.max = 100
         startTrack = view.music_time_start
         endTrack = view.music_time_end
-        prepareMediaPlayer(track, view)
-    }
-
-
-    private fun prepareMediaPlayer(track: TrackModel, view: View){
-        mediaPlayer = MediaPlayer().apply {
-            setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .build()
-            )
-
-        }
-        try {
-            mediaPlayer.setDataSource(track.previewUrl)
-            mediaPlayer.prepareAsync()
-        }
-        catch (e: Exception){
-            Toast.makeText(view.context, "Media Error", Toast.LENGTH_LONG).show()
-        }
     }
 
 
     fun managePlayer(view: View){
-        if (mediaPlayer.isPlaying){
-            handler.removeCallbacks(updater)
-            mediaPlayer.pause()
-            view.play_button.setImageResource(R.drawable.ic_baseline_play_circle)
+        mediaPlayer = PlayerObject.getPlayer()
+        if (!mediaPlayer.isPlaying){
+            view.play_button.setImageResource(R.drawable.ic_baseline_pause_circle)
+            mediaPlayer.start()
+            updateSeekBar()
+            Log.d("TAG_PLAYER", "Presenter managePlayer() method + mediaPlayer is Playing")
         }
         else{
-            mediaPlayer.start()
-            view.play_button.setImageResource(R.drawable.ic_baseline_pause_circle)
-            updateSeekBar()
+            view.play_button.setImageResource(R.drawable.ic_baseline_play_circle)
+            mediaPlayer.pause()
+            handler.removeCallbacks(updater)
+            Log.d("TAG_PLAYER", "Presenter managePlayer() method + mediaPlayer is not Playing")
+            //seekBar.progress = 50
         }
-
+        Log.d("TAG_PLAYER", "Presenter managePlayer() method")
     }
-
-
 
     private val updater: Runnable = Runnable{
         updateSeekBar()
@@ -93,7 +77,6 @@ class MediaPlayerPresenter {
         }
     }
 
-
     private fun getTimeInMin(trackTime: Long): String{
         if (trackTime == 0L)
             return "0:00"
@@ -103,4 +86,6 @@ class MediaPlayerPresenter {
             else "${trackTime/1000/60}:0${trackTime/1000%60}"
         }
     }
+
+
 }

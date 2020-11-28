@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import com.example.itunesapp.PlayerObject
 import com.example.itunesapp.R
 import com.example.itunesapp.model.TrackModel
 import com.example.itunesapp.presenter.MediaPlayerPresenter
@@ -23,7 +24,8 @@ import kotlinx.android.synthetic.main.fragment_media_player.view.*
 
 class MediaPlayerFragment : Fragment(), MediaPlayerView {
 
-    lateinit var mediaPlayerPresenter: MediaPlayerPresenter
+    private lateinit var mediaPlayerPresenter: MediaPlayerPresenter
+    private val mediaPlayer = PlayerObject.getPlayer()
     private lateinit var seekBar: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,7 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
         val trackModel = arguments?.getParcelable<TrackModel>(AlbumDetailActivity.INTENT_PARAM_TRACK_MODEL)
         if (trackModel != null){
             renderTrackDetails(view, trackModel)
+            //mediaPlayerPresenter.setMediaView(view) //TODO переделать
             setListeners(view, mediaService, trackModel)
         }
             else showError("Track Information Not Found")
@@ -63,10 +66,10 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 
-    fun setListeners(view: View, mediaService: Class<*>, track: TrackModel){
+    private fun setListeners(view: View, mediaService: Class<*>, track: TrackModel){
         view.play_button.setOnClickListener {
-            /*if (!isServiceRunning(mediaService)) {
-                val intent = Intent(context, mediaService)
+            val intent = Intent(context, mediaService)
+            if (!isServiceRunning(mediaService) && !mediaPlayer.isPlaying) {
                 intent.putExtra(MediaService.ACTION_PLAY, track.previewUrl)
                 try {
                     context?.startService(intent)
@@ -76,17 +79,38 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
                     Toast.makeText(context, "Media Error", Toast.LENGTH_LONG).show()
                 }
             }
-            else
-                Toast.makeText(context, "Media has already started", Toast.LENGTH_LONG).show()
-            */
+            else if (mediaPlayer.isPlaying){
+                mediaPlayerPresenter.managePlayer(view)
+                Toast.makeText(context, "Media Paused", Toast.LENGTH_LONG).show()
+            }
+            else if (!mediaPlayer.isPlaying){
+                mediaPlayerPresenter.managePlayer(view)
+                Toast.makeText(context, "Media Restarted", Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(context, "Media Error???", Toast.LENGTH_LONG).show()
+            }
 
-            mediaPlayerPresenter.managePlayer(view)
+
+        /*
+            else if (mediaPlayer.isPlaying){
+                mediaPlayer.pause()
+                mediaPlayerPresenter.managePlayer(view)
+                Toast.makeText(context, "Media Paused", Toast.LENGTH_LONG).show()
+            }
+            else if (isServiceRunning(mediaService) && !mediaPlayer.isPlaying){
+                mediaPlayer.start()
+                mediaPlayerPresenter.managePlayer(view)
+                Toast.makeText(context, "Media Restarted", Toast.LENGTH_LONG).show()
+
+                //context?.stopService(intent)
+            }
+            */
         }
     }
 
-    /*private fun isServiceRunning(serviceClass: Class<*>): Boolean {
+    private fun isServiceRunning(serviceClass: Class<*>): Boolean {
         val activityManager = context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-
         // Loop through the running services
         for (service in activityManager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {
@@ -95,7 +119,7 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
             }
         }
         return false
-    }*/
+    }
 
 
 
