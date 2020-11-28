@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,9 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
         val view = inflater.inflate(R.layout.fragment_media_player, container, false)
 
         mediaPlayerPresenter = MediaPlayerPresenter()
-        mediaPlayerPresenter.setView(this)
+        mediaPlayerPresenter.setView(view)
+        PlayerObject.setPresenter(mediaPlayerPresenter)
+        //mediaPlayerPresenter.setView(view)
 
         val mediaService = MediaService::class.java
 
@@ -56,6 +59,12 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
         seekBar.max = 100
 
         return view
+    }
+
+    override fun onStop() {
+        super.onStop()
+        PlayerObject.stopMedia()
+        Log.d("TAG_PLAYER", "Fragment has Stopped")
     }
 
     override fun renderTrackDetails(view: View, track: TrackModel) {
@@ -80,11 +89,13 @@ class MediaPlayerFragment : Fragment(), MediaPlayerView {
                 }
             }
             else if (mediaPlayer.isPlaying){
-                mediaPlayerPresenter.managePlayer(view)
+                //mediaPlayerPresenter.managePlayer()
+                    PlayerObject.pauseMedia()
                 Toast.makeText(context, "Media Paused", Toast.LENGTH_LONG).show()
             }
             else if (!mediaPlayer.isPlaying){
-                mediaPlayerPresenter.managePlayer(view)
+                //mediaPlayerPresenter.managePlayer()
+                    PlayerObject.startMedia()
                 Toast.makeText(context, "Media Restarted", Toast.LENGTH_LONG).show()
             }
             else{

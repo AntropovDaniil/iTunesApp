@@ -35,8 +35,7 @@ class MediaService : Service(), MediaPlayer.OnPreparedListener {
             val previewUrl = intent?.getStringExtra(ACTION_PLAY)
             mediaPlayer = PlayerObject.getPlayer()
             mediaPlayer.setOnPreparedListener(this@MediaService)
-            mediaPlayer.setDataSource(previewUrl)
-            mediaPlayer.prepareAsync()
+            PlayerObject.setResources(previewUrl)
             Log.d("TAG_PLAYER", "Service onStartCommand")
         }
 

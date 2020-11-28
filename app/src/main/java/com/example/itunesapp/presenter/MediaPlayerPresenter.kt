@@ -14,19 +14,18 @@ import com.example.itunesapp.R
 import com.example.itunesapp.model.TrackModel
 import com.example.itunesapp.view.MediaPlayerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_album_detail.view.*
 import kotlinx.android.synthetic.main.fragment_media_player.view.*
 
 class MediaPlayerPresenter {
 
-    private lateinit var mediaPlayerView: MediaPlayerView
+    private lateinit var mediaPlayerView: View // MediaPLayerView
     private lateinit var seekBar: SeekBar
     private lateinit var startTrack: TextView
     private lateinit var endTrack: TextView
     private val handler: Handler = Handler()
     private lateinit var mediaPlayer: MediaPlayer
 
-    fun setView(view: MediaPlayerView){
+    fun setView(view: View){ //MediaPlayerView
         mediaPlayerView = view
     }
 
@@ -44,22 +43,20 @@ class MediaPlayerPresenter {
     }
 
 
-    fun managePlayer(view: View){
+    fun managePlayer(){ //view: View
         mediaPlayer = PlayerObject.getPlayer()
-        if (!mediaPlayer.isPlaying){
-            view.play_button.setImageResource(R.drawable.ic_baseline_pause_circle)
-            mediaPlayer.start()
+        if (mediaPlayer.isPlaying){
+            mediaPlayerView.play_button.setImageResource(R.drawable.ic_baseline_pause_circle)
+            //mediaPlayer.start()
             updateSeekBar()
-            Log.d("TAG_PLAYER", "Presenter managePlayer() method + mediaPlayer is Playing")
+            Log.d("TAG_PLAYER", "Presenter managePlayer() method + mediaPlayer Paused")
         }
-        else{
-            view.play_button.setImageResource(R.drawable.ic_baseline_play_circle)
-            mediaPlayer.pause()
+        else {
+            mediaPlayerView.play_button.setImageResource(R.drawable.ic_baseline_play_circle)
+            //mediaPlayer.pause()
             handler.removeCallbacks(updater)
-            Log.d("TAG_PLAYER", "Presenter managePlayer() method + mediaPlayer is not Playing")
-            //seekBar.progress = 50
+            Log.d("TAG_PLAYER", "Presenter managePlayer() method + mediaPlayer is Started")
         }
-        Log.d("TAG_PLAYER", "Presenter managePlayer() method")
     }
 
     private val updater: Runnable = Runnable{
